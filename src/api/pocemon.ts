@@ -1,9 +1,20 @@
 import {
-  BASE_URL, POKEMONS, POKEMONS_PER_PAGE, TYPES,
+  BASE_URL, POKEMONS, TYPES,
 } from './api';
 
 export const requestPokemon = () => {
-  return fetch(`${BASE_URL}/${POKEMONS}/?limit=${POKEMONS_PER_PAGE}`)
+  return fetch(`${BASE_URL}/${POKEMONS}/`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`${response.status} - ${response.statusText}`);
+      }
+
+      return response.json();
+    });
+};
+
+export const requestInfo = (name: string) => {
+  return fetch(`${BASE_URL}/${POKEMONS}/${name}`)
     .then(response => {
       if (!response.ok) {
         throw new Error(`${response.status} - ${response.statusText}`);

@@ -1,68 +1,51 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './App.scss';
-import { requestCard, requestPokemon, requestTypes } from './api/pocemon';
+import { requestPokemon } from './api/pocemon';
+import PokemonList from './components/pokemonList';
 
 export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [isOpen, setOpen] = useState<boolean>(false);
+  // const [isOpen, setOpen] = useState<boolean>(false);
   // const [card, setCard] = useState<Card>([]);
 
   const loadData = async () => {
     const pokemonFromServer = await requestPokemon();
-    const pokemonTypes = await requestTypes();
+    // const pokemonTypes = await requestTypes();
 
-    const pokemonCards = (): Pokemon[] => {
-      return pokemonFromServer?.results.map((item: Pokemon, index: number) => {
-        const type: Type = { type: pokemonTypes?.results[index].name };
-
-        const newItem = { ...item, ...type };
-
-        return newItem;
-      });
-    };
-
-    setPokemons(pokemonCards());
+    setPokemons(pokemonFromServer.results);
 
     console.log(pokemons);
   };
 
-  const toggleOpen = async () => {
-    setOpen(!isOpen);
-    console.log(isOpen);
+  // const toggleOpen = async () => {
+  //   setOpen(!isOpen);
 
-    const pokemonC = await requestCard(pokemons[0].url);
-    const url = await requestCard(pokemonC.game_indices[0].version.url);
+  //   const pokemonC = await requestCard(pokemons[1].url);
+  //   // const url = await requestCard(pokemonC.game_indices[0].version.url);
 
-    console.log(url.id);
-  };
+  //   console.log(pokemonC);
+  // };
 
   useEffect(() => {
     loadData();
   }, []);
 
+  const prepPok = useMemo(() => {
+    return pokemons;
+  }, [pokemons]);
+
   return (
-    <div className="starter">
+    <div className="App">
       <h1>
         Pokedex
       </h1>
-      <ul>
+      .
+      <ul className="App_list">
         {pokemons.map(pokemon => (
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-          <li
-            onClick={toggleOpen}
-            onKeyPress={toggleOpen}
-            key={pokemon.name}
-          >
-            {`${pokemon.name} - ${pokemon.type}`}
-          </li>
+          <PokemonList key={pokemon.name} pokemons={prepPok} />
         ))}
       </ul>
-      {isOpen && (
-        <div>
-
-        </div>
-      )}
     </div>
   );
 };

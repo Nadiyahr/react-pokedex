@@ -3,18 +3,33 @@
 type Pokemon = {
   name: string,
   url: string
-  type: Type | null,
 };
 
-type Type = {
-  type: string,
-};
+interface PokemonType {
+  name: string;
+  url: string;
+}
+
+interface Sprites {
+  other: {
+    'official-artwork': {
+      front_default: string;
+    }
+  }
+}
+
+interface PokemonTypes {
+  type: {
+    name: string;
+  }
+}
 
 interface Card {
+  moves: [];
   name: string;
   id: number;
   sprites: Sprites;
-  types: Pokemon[];
+  types: PokemonTypes[];
   stats: Stats[];
 }
 
