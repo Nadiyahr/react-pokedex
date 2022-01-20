@@ -39,3 +39,8 @@ interface Stats {
     name: string;
   }
 }
+
+interface ReactSelect<T> {
+  value: T;
+  label: string;
+}

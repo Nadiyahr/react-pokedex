@@ -16,7 +16,6 @@ export const PokemonCard: React.FC<Props> = (props) => {
     const info = await requestInfo(pokemon.name);
 
     setCard(info);
-    console.log(card);
   };
 
   useEffect(() => {
@@ -34,11 +33,15 @@ export const PokemonCard: React.FC<Props> = (props) => {
               className="Card_img"
             />
           </div>
-          <button
-            type="button"
-          >
-            {card.types[0].type.name}
-          </button>
+          <div className="Card_bottom">
+            <h2 className="Card_title">{card.name}</h2>
+            <button
+              type="button"
+              className="Card_btn"
+            >
+              {card.types[0].type.name}
+            </button>
+          </div>
         </div>
       )}
     </li>

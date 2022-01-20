@@ -1,17 +1,30 @@
 .Card {
-  max-width: 200px;
-  max-height: 300px;
-  display: grid;
-  grid-template-rows: auto;
+  min-width: 200px;
+  min-height: 320px;
+  padding: 20px;
+  border: solid 1px black;
 
   &_div {
     display: flex;
     width: 200px;
     height: 200px;
+    border: solid 1px black;
   }
 
   &_img {
     max-width: fit-content;
     max-height: fit-content;
+  }
+
+  &_title {
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+  &_btn {
+    width: 80px;
+    height: 30px;
+    text-transform: capitalize;
+    font-weight: bold;
   }
 }
