@@ -4,18 +4,24 @@ import './App.scss';
 import { requestPokemon } from './api/pocemon';
 import PokemonCard from './components/PokemonCard';
 import FindPocemon from './components/FindPokemon';
+import { POKEMONS_PER_PAGE } from './api/api';
 
 export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   // const [isOpen, setOpen] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(0);
+  const [offset, setOffset] = useState<number>(POKEMONS_PER_PAGE);
+  const [more, setMore] = useState<number>(0);
 
   const loadData = async () => {
-    const pokemonFromServer = await requestPokemon();
-    // const pokemonTypes = await requestTypes();
+    setOffset(prevOffset => prevOffset + 12);
+    const pokemonFromServer = await requestPokemon(offset);
 
     setPokemons(pokemonFromServer.results);
-    setCount(prev => prev + 1);
+  };
+
+  const getMore = () => {
+    setMore(current => current + 1);
+    console.log(more);
   };
 
   // const toggleOpen = async () => {
@@ -29,11 +35,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     loadData();
-  }, []);
-
-  // const pokemonReady = useMemo(() => {
-  //   return pokemons;
-  // }, [pokemons]);
+  }, [more]);
 
   return (
     <div className="App">
@@ -44,12 +46,12 @@ export const App: React.FC = () => {
         <FindPocemon />
       </div>
       <div className="App_main">
-        {count}
         <ul className="App_list">
           {pokemons.map(pokemon => (
             <PokemonCard key={pokemon.name} pokemon={pokemon} />
           ))}
         </ul>
+        <button type="button" className="App_more" onClick={getMore}>Load More</button>
       </div>
       <div className="App_sidebar">
         <h2>Sidebar</h2>
