@@ -1,8 +1,8 @@
 .Card {
   min-width: 200px;
   min-height: 320px;
-  padding: 20px;
-  border: solid 1px black;
+  padding: 10px;
+  border: solid 2px black;
 
   &_div {
     display: flex;
@@ -21,10 +21,20 @@
     text-transform: capitalize;
   }
 
+  &_buttons {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
   &_btn {
-    width: 80px;
+    width: 90px;
     height: 30px;
     text-transform: capitalize;
     font-weight: bold;
+    border-radius: 4px;
+    
+    &:first-child {
+      margin-right: 16px;
+    }
   }
 }

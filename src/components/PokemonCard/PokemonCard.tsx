@@ -35,12 +35,17 @@ export const PokemonCard: React.FC<Props> = (props) => {
           </div>
           <div className="Card_bottom">
             <h2 className="Card_title">{card.name}</h2>
-            <button
-              type="button"
-              className="Card_btn"
-            >
-              {card.types[0].type.name}
-            </button>
+            <div className="Card_buttons">
+              {card.types.map(item => (item.type.name !== 'bug' ? (
+                <button
+                  key={item.type.name}
+                  type="button"
+                  className="Card_btn"
+                >
+                  {item.type.name}
+                </button>
+              ) : null))}
+            </div>
           </div>
         </div>
       )}

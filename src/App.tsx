@@ -1,20 +1,21 @@
 /* eslint-disable no-console */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { requestPokemon } from './api/pocemon';
-import PokemonList from './components/pokemonList';
+import PokemonCard from './components/PokemonCard';
 import FindPocemon from './components/FindPokemon';
 
 export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   // const [isOpen, setOpen] = useState<boolean>(false);
-  // const [card, setCard] = useState<Card>([]);
+  const [count, setCount] = useState<number>(0);
 
   const loadData = async () => {
     const pokemonFromServer = await requestPokemon();
     // const pokemonTypes = await requestTypes();
 
     setPokemons(pokemonFromServer.results);
+    setCount(prev => prev + 1);
   };
 
   // const toggleOpen = async () => {
@@ -30,9 +31,9 @@ export const App: React.FC = () => {
     loadData();
   }, []);
 
-  const pokemonReady = useMemo(() => {
-    return pokemons;
-  }, [pokemons]);
+  // const pokemonReady = useMemo(() => {
+  //   return pokemons;
+  // }, [pokemons]);
 
   return (
     <div className="App">
@@ -43,9 +44,10 @@ export const App: React.FC = () => {
         <FindPocemon />
       </div>
       <div className="App_main">
+        {count}
         <ul className="App_list">
           {pokemons.map(pokemon => (
-            <PokemonList key={pokemon.name} pokemons={pokemonReady} />
+            <PokemonCard key={pokemon.name} pokemon={pokemon} />
           ))}
         </ul>
       </div>
