@@ -31,6 +31,8 @@ interface Card {
   sprites: Sprites;
   types: PokemonTypes[];
   stats: Stats[];
+  weight: number;
+  moves: [];
 }
 
 interface Stats {

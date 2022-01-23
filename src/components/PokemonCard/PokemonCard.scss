@@ -1,9 +1,7 @@
 .Card {
   width: 13vw;
-  height: 22vw;
+  height: 20vw;
   padding: 0.5vw;
-  // border: solid 2px black;
-  // border-radius: 3px;
   box-sizing: border-box;
   cursor: pointer;
 
@@ -32,7 +30,6 @@
 
   &_buttons {
     display: flex;
-    margin-bottom: 1vw;
   }
 
   &_types {

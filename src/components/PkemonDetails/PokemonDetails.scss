@@ -1,0 +1,48 @@
+.Details {
+  box-sizing: border-box;
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2.5vw;
+  padding-top: 0;
+  top: 1vh;
+  right: 7vw;
+  width: 23vw;
+  height: 97vh;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &_container {
+    display: flex;
+    height: 18vw;
+    box-sizing: border-box;
+  }
+
+  &_bottom {
+    display: grid;
+
+  }
+
+  &_title {
+    margin: 0;
+    text-transform: capitalize;
+  }
+
+  &_list {
+    list-style: none;
+    -webkit-padding-start: 0;
+  }
+
+  &_item {
+    margin-right: -10px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 18vw;
+    border:  1px solid black;
+    margin-top: -1px;
+    padding: 6px;
+    font-size: 18px;
+  }
+}

@@ -51,7 +51,6 @@ export const App: React.FC = () => {
         </button>
       </div>
       <div className="App_sidebar">
-        <h2>Sidebar</h2>
         {details && (
           <PokemonDetails
             setClose={setDetails}
