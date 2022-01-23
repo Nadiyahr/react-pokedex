@@ -13,7 +13,7 @@ export const requestPokemon = (offset: number) => {
     });
 };
 
-export const requestInfo = (name: string) => {
+export const requestInfo = (name: string | number | null) => {
   return fetch(`${BASE_URL}/${POKEMONS}/${name}`)
     .then(response => {
       if (!response.ok) {

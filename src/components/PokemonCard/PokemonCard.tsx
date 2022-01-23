@@ -4,18 +4,19 @@ import { requestInfo } from '../../api/pocemon';
 import './PokemonCard.scss';
 
 type Props = {
-  key: string;
+  // onSelectName: (name: string | '') => void;
   pokemon: Pokemon;
 };
 
 export const PokemonCard: React.FC<Props> = (props) => {
-  const { pokemon, key } = props;
+  const { pokemon } = props;
   const [card, setCard] = useState<Card | null>(null);
 
   const preparedCard = async () => {
     const info = await requestInfo(pokemon.name);
 
     setCard(info);
+    // console.log(info);
   };
 
   useEffect(() => {
@@ -23,32 +24,33 @@ export const PokemonCard: React.FC<Props> = (props) => {
   }, []);
 
   return (
-    <li key={key}>
+    <>
       {card && (
-        <div className="Card">
-          <div className="Card_div">
-            <img
-              src={card.sprites.other['official-artwork'].front_default}
-              alt={card.name}
-              className="Card_img"
-            />
-          </div>
-          <div className="Card_bottom">
-            <h2 className="Card_title">{card.name}</h2>
-            <div className="Card_buttons">
-              {card.types.map(item => (
-                <button
-                  key={item.type.name}
-                  type="button"
-                  className="Card_btn"
-                >
-                  {item.type.name}
-                </button>
-              ))}
+        <li key={card.id}>
+          <div className="Card">
+            <div className="Card_div">
+              <img
+                src={card.sprites.other['official-artwork'].front_default}
+                alt={card.name}
+                className="Card_img"
+              />
+            </div>
+            <div className="Card_bottom">
+              <h2 className="Card_title">{card.name}</h2>
+              <div className="Card_buttons">
+                {card.types.map(item => (
+                  <div
+                    key={item.type.name}
+                    className="Card_types"
+                  >
+                    {item.type.name}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </li>
       )}
-    </li>
+    </>
   );
 };

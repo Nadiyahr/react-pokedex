@@ -1,41 +1,36 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { requestPokemon } from './api/pocemon';
-import PokemonCard from './components/PokemonCard';
+import { requestInfo, requestPokemon } from './api/pocemon';
 import FindPocemon from './components/FindPokemon';
 import { POKEMONS_PER_PAGE } from './api/api';
+import PokemonDetails from './components/PkemonDetails';
+import PokemonList from './components/PokemonList';
 
 export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  // const [isOpen, setOpen] = useState<boolean>(false);
   const [offset, setOffset] = useState<number>(POKEMONS_PER_PAGE);
-  const [more, setMore] = useState<number>(0);
+  const [details, setDetails] = useState<Card | null>(null);
 
   const loadData = async () => {
-    setOffset(prevOffset => prevOffset + 12);
-    const pokemonFromServer = await requestPokemon(offset);
+    const listFromServer = await requestPokemon(offset);
 
-    setPokemons(pokemonFromServer.results);
+    setPokemons(listFromServer.results);
   };
 
-  const getMore = () => {
-    setMore(current => current + 1);
-    console.log(more);
+  const loadCard = async (name: string) => {
+    const info = await requestInfo(name);
+
+    setDetails(info);
   };
 
-  // const toggleOpen = async () => {
-  //   setOpen(!isOpen);
-
-  //   const pokemonC = await requestCard(pokemons[1].url);
-  //   // const url = await requestCard(pokemonC.game_indices[0].version.url);
-
-  //   console.log(pokemonC);
-  // };
+  const getPokemon = (name: string) => {
+    loadCard(name);
+  };
 
   useEffect(() => {
     loadData();
-  }, [more]);
+  }, [offset]);
 
   return (
     <div className="App">
@@ -46,15 +41,23 @@ export const App: React.FC = () => {
         <FindPocemon />
       </div>
       <div className="App_main">
-        <ul className="App_list">
-          {pokemons.map(pokemon => (
-            <PokemonCard key={pokemon.name} pokemon={pokemon} />
-          ))}
-        </ul>
-        <button type="button" className="App_more" onClick={getMore}>Load More</button>
+        <PokemonList onSelectName={getPokemon} pokemons={pokemons} />
+        <button
+          type="button"
+          className="App_more"
+          onClick={() => setOffset(prevOffset => prevOffset + 12)}
+        >
+          Load More
+        </button>
       </div>
       <div className="App_sidebar">
         <h2>Sidebar</h2>
+        {details && (
+          <PokemonDetails
+            setClose={setDetails}
+            details={details}
+          />
+        )}
       </div>
     </div>
   );
