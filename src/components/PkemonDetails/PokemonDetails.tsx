@@ -12,6 +12,18 @@ export const PokemonDetails: React.FC<Props> = (props) => {
   // eslint-disable-next-line no-console
   console.log(details);
 
+  const textTrasform = (text: string) => {
+    if (text.includes('special-')) {
+      return text.replace(/special-/, 'SP ');
+    }
+
+    if (text === 'hp') {
+      return text.toUpperCase();
+    }
+
+    return text;
+  };
+
   return (
     <>
       {details && (
@@ -45,7 +57,7 @@ export const PokemonDetails: React.FC<Props> = (props) => {
               ))}
               {details.stats.map(stat => (
                 <li key={stat.stat.name} className="Details_item">
-                  {stat.stat.name}
+                  {textTrasform(stat.stat.name)}
                   <span className="Details_value">
                     {stat.base_stat}
                   </span>
@@ -55,7 +67,7 @@ export const PokemonDetails: React.FC<Props> = (props) => {
                 className="Details_item"
                 key="weight"
               >
-                weight
+                Weight
                 <span className="Details_value">
                   {details.weight}
                 </span>
