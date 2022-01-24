@@ -7,12 +7,30 @@ import React from 'react';
 //   className: string;
 // }
 
-export const FindPocemon: React.FC = () => {
-  // const [options, setOptions] = useState<MultiValue<ReactSelect<string>>>([]);
+type Props = {
+  getAllTypes: () => void;
+  allTypes: PokemonType[] | null;
+};
+
+export const FindPocemon: React.FC<Props> = (props) => {
+  const { getAllTypes, allTypes } = props;
 
   return (
-    <>
-      {/* <Select options={optons} isMulti /> */}
-    </>
+    <div className="Select">
+      <button
+        type="button"
+        onClick={() => getAllTypes()}
+        className="Select_btn"
+      >
+        Select Types
+      </button>
+      {allTypes && (
+        <ul className="Select_list">
+          {allTypes.map(type => (
+            <li key={type.name} className="Select_item">{type.name}</li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 };

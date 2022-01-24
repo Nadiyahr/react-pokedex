@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
+import { COLOR_TYPES } from '../../api/api';
 import { requestInfo } from '../../api/pocemon';
 import './PokemonCard.scss';
 
 type Props = {
-  // onSelectName: (name: string | '') => void;
   pokemon: Pokemon;
 };
 
@@ -16,7 +16,8 @@ export const PokemonCard: React.FC<Props> = (props) => {
     const info = await requestInfo(pokemon.name);
 
     setCard(info);
-    // console.log(info);
+
+    console.log(info);
   };
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export const PokemonCard: React.FC<Props> = (props) => {
                   <div
                     key={item.type.name}
                     className="Card_types"
+                    style={{ backgroundColor: COLOR_TYPES[item.type.name] }}
                   >
                     {item.type.name}
                   </div>

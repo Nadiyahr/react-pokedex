@@ -1,4 +1,5 @@
 import React from 'react';
+import { COLOR_TYPES } from '../../api/api';
 import './PokemonDetails.scss';
 
 type Props = {
@@ -31,7 +32,7 @@ export const PokemonDetails: React.FC<Props> = (props) => {
           className="Details"
           onClick={() => setClose(null)}
           type="button"
-          key={details?.id}
+          key={details.id}
         >
           <div className="Details_container">
             <img
@@ -50,7 +51,7 @@ export const PokemonDetails: React.FC<Props> = (props) => {
                   key={type.type.name}
                 >
                   Type
-                  <span className="Details_value">
+                  <span className="Details_value" style={{ color: COLOR_TYPES[type.type.name] }}>
                     {type.type.name}
                   </span>
                 </li>

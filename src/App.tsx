@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { requestInfo, requestPokemon } from './api/pocemon';
+import { requestInfo, requestPokemon, requestTypes } from './api/pocemon';
 import FindPocemon from './components/FindPokemon';
 import { POKEMONS_PER_PAGE } from './api/api';
 import PokemonDetails from './components/PkemonDetails';
@@ -11,6 +11,7 @@ export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [offset, setOffset] = useState<number>(POKEMONS_PER_PAGE);
   const [details, setDetails] = useState<Card | null>(null);
+  const [types, setTypes] = useState<PokemonType[]>([]);
 
   const loadData = async () => {
     const listFromServer = await requestPokemon(offset);
@@ -28,6 +29,19 @@ export const App: React.FC = () => {
     loadCard(name);
   };
 
+  const loadTypes = async () => {
+    const listOfTypes = await requestTypes();
+
+    setTypes(listOfTypes.results);
+
+    console.log(listOfTypes.results);
+    console.log(types);
+  };
+
+  const getTypes = () => {
+    loadTypes();
+  };
+
   useEffect(() => {
     loadData();
   }, [offset]);
@@ -38,7 +52,7 @@ export const App: React.FC = () => {
         <h1 className="App_title">
           Pokedex
         </h1>
-        <FindPocemon />
+        <FindPocemon getAllTypes={getTypes} allTypes={types} />
       </div>
       <div className="App_main">
         <PokemonList onSelectName={getPokemon} pokemons={pokemons} />

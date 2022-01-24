@@ -13,37 +13,75 @@
   border-radius: 5px;
   cursor: pointer;
 
+  @media (max-width: 900px) {
+    font-size: 0.7em;
+    top: 5vh;
+    right: 5vw;
+    padding: 0;
+    height: 90vh;
+  }
+
+  @media (max-width: 600px) {
+    height: 80vh;
+    top: 10vh;
+
+  }
+
   &_container {
     display: flex;
     height: 18vw;
     box-sizing: border-box;
+
+    @media (max-width: 900px) {
+      height: 30vh;
+    }
+
+    @media (max-width: 600px) {
+      height: 18vh;
+    }
   }
 
   &_bottom {
     display: grid;
-
   }
 
   &_title {
     margin: 0;
     text-transform: capitalize;
+    font-size: 2em;
+
+    @media (max-width: 900px) {
+      font-size: 1.5em;
+    }
   }
 
   &_list {
     list-style: none;
     -webkit-padding-start: 0;
+
+    @media (max-width: 900px) {
+      -webkit-padding-start: 1vw;
+    }
   }
 
   &_item {
-    margin-right: -10px;
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
     width: 18vw;
     border:  1px solid black;
     margin-top: -1px;
-    padding: 6px;
-    font-size: 18px;
+    padding: 0.8vh;
+    font-size: 1.5em;
     text-transform: capitalize;
+
+    @media (max-width: 900px) {
+      font-size: 1em;
+      width: 20vw;
+    }
+
+    @media (max-width: 600px) {
+      padding: 0.6vh;
+    }
   }
 }

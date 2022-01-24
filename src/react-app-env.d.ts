@@ -1,5 +1,9 @@
 /// <reference types="react-scripts" />
 
+interface Colors {
+  [name: string]: string
+}
+
 type Pokemon = {
   name: string,
   url: string
