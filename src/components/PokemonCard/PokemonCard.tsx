@@ -12,6 +12,8 @@ export const PokemonCard: React.FC<Props> = (props) => {
   const { pokemon } = props;
   const [card, setCard] = useState<Card | null>(null);
 
+  console.log(pokemon.name);
+
   const preparedCard = async () => {
     const info = await requestInfo(pokemon.name);
 

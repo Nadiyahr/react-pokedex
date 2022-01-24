@@ -1,36 +1,85 @@
-import React from 'react';
-// import Select, { MultiValue } from 'react-select';
-
-// interface Props {
-//   selectedFilters: MultiValue<ReactSelect<string>>;
-//   setSelectedFilters: (filters: MultiValue<ReactSelect<string>>) => void;
-//   className: string;
-// }
+/* eslint-disable no-console */
+import React, { useEffect, useState } from 'react';
+import { COLOR_TYPES } from '../../api/api';
+import { requestTypes } from '../../api/pocemon';
+import './FindPokemon.scss';
 
 type Props = {
-  getAllTypes: () => void;
-  allTypes: PokemonType[] | null;
+  getIndex: (index: number, name: string) => void;
 };
 
 export const FindPocemon: React.FC<Props> = (props) => {
-  const { getAllTypes, allTypes } = props;
+  const { getIndex } = props;
+  const [types, setTypes] = useState<PokemonType[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const loadTypes = async () => {
+    const listOfTypes = await requestTypes();
+
+    setTypes(listOfTypes.results);
+
+    console.log(listOfTypes.results);
+  };
+
+  const getTypes = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    loadTypes();
+  }, []);
 
   return (
     <div className="Select">
       <button
         type="button"
-        onClick={() => getAllTypes()}
+        onClick={getTypes}
         className="Select_btn"
       >
         Select Types
+        <span className="Select_span">&#9660;</span>
       </button>
-      {allTypes && (
-        <ul className="Select_list">
-          {allTypes.map(type => (
-            <li key={type.name} className="Select_item">{type.name}</li>
-          ))}
-        </ul>
-      )}
+      <div className="Select_container">
+        {isOpen && types && (
+          <ul className="Select_list">
+            <button
+              key="zero"
+              type="button"
+              className="Select_item"
+              onClick={() => {
+                getTypes();
+                getIndex(0, '');
+              }}
+            >
+              <li
+                key="liZero"
+                style={{ color: '#000' }}
+              >
+                0 all
+              </li>
+            </button>
+            {types.map((type, index) => (
+              <button
+                key={type.name}
+                type="button"
+                className="Select_item"
+                style={{ backgroundColor: COLOR_TYPES[type.name] }}
+                onClick={() => {
+                  getTypes();
+                  getIndex(index, type.name);
+                }}
+              >
+                <li
+                  key={type.name}
+                  className="Select_item--li"
+                >
+                  {`${index + 1} ${type.name}`}
+                </li>
+              </button>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

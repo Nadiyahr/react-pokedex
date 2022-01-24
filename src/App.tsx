@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { requestInfo, requestPokemon, requestTypes } from './api/pocemon';
+import { requestInfo, requestPokemon, requestTypeByIndex } from './api/pocemon';
 import FindPocemon from './components/FindPokemon';
 import { POKEMONS_PER_PAGE } from './api/api';
 import PokemonDetails from './components/PkemonDetails';
@@ -9,9 +9,13 @@ import PokemonList from './components/PokemonList';
 
 export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [pokemonAreLoaded, setPokemonAreLoaded] = useState<boolean>(true);
   const [offset, setOffset] = useState<number>(POKEMONS_PER_PAGE);
   const [details, setDetails] = useState<Card | null>(null);
-  const [types, setTypes] = useState<PokemonType[]>([]);
+  const [typeIndex, setTypeIndex] = useState<number | 0>(0);
+  const [typeName, setTypeName] = useState<string | ''>('');
+  const [indexLoaded, setIndexLoaded] = useState<boolean>(false);
+  const [typeOffset, setTypeOffset] = useState<number>(POKEMONS_PER_PAGE);
 
   const loadData = async () => {
     const listFromServer = await requestPokemon(offset);
@@ -29,37 +33,68 @@ export const App: React.FC = () => {
     loadCard(name);
   };
 
-  const loadTypes = async () => {
-    const listOfTypes = await requestTypes();
+  const loadTypeWithIndex = async (index: number) => {
+    const listByIndexType = await requestTypeByIndex(index + 1);
 
-    setTypes(listOfTypes.results);
+    console.log(listByIndexType.pokemon.map((x: TypePokemon) => x.pokemon));
 
-    console.log(listOfTypes.results);
-    console.log(types);
+    setPokemons(listByIndexType.pokemon
+      .slice(0, typeOffset)
+      .map((x: TypePokemon) => x.pokemon));
   };
 
-  const getTypes = () => {
-    loadTypes();
+  const getIndexType = (index: number, name: string) => {
+    if (index) {
+      setPokemonAreLoaded(false);
+    } else {
+      setPokemonAreLoaded(true);
+    }
+
+    setIndexLoaded(!indexLoaded);
+    setTypeIndex(index);
+    setTypeName(name);
+    console.log(index);
+  };
+
+  const loadMore = () => {
+    if (indexLoaded) {
+      setTypeOffset(prevOffset => prevOffset + 12);
+    }
+
+    if (pokemonAreLoaded) {
+      setOffset(prevOffset => prevOffset + 12);
+    }
   };
 
   useEffect(() => {
-    loadData();
-  }, [offset]);
+    if (pokemonAreLoaded) {
+      loadData();
+    }
+
+    if (typeIndex) {
+      loadTypeWithIndex(typeIndex);
+    }
+  }, [offset, pokemonAreLoaded, typeOffset, typeIndex]);
 
   return (
     <div className="App">
       <div className="App_header">
         <h1 className="App_title">
+          <span className="App_span">
+            {pokemonAreLoaded ? 'all ' : `${typeName} `}
+          </span>
           Pokedex
         </h1>
-        <FindPocemon getAllTypes={getTypes} allTypes={types} />
+        <FindPocemon
+          getIndex={getIndexType}
+        />
       </div>
       <div className="App_main">
         <PokemonList onSelectName={getPokemon} pokemons={pokemons} />
         <button
           type="button"
           className="App_more"
-          onClick={() => setOffset(prevOffset => prevOffset + 12)}
+          onClick={loadMore}
         >
           Load More
         </button>

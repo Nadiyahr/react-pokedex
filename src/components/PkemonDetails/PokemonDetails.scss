@@ -29,7 +29,7 @@
 
   &_container {
     display: flex;
-    height: 18vw;
+    height: 37vh;
     box-sizing: border-box;
 
     @media (max-width: 900px) {
@@ -57,7 +57,7 @@
 
   &_list {
     list-style: none;
-    -webkit-padding-start: 0;
+    
 
     @media (max-width: 900px) {
       -webkit-padding-start: 1vw;
@@ -71,7 +71,7 @@
     width: 18vw;
     border:  1px solid black;
     margin-top: -1px;
-    padding: 0.8vh;
+    padding: 0.7vh;
     font-size: 1.5em;
     text-transform: capitalize;
 

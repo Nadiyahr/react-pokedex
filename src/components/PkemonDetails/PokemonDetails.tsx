@@ -49,9 +49,10 @@ export const PokemonDetails: React.FC<Props> = (props) => {
                 <li
                   className="Details_item"
                   key={type.type.name}
+                  style={{ backgroundColor: COLOR_TYPES[type.type.name] }}
                 >
                   Type
-                  <span className="Details_value" style={{ color: COLOR_TYPES[type.type.name] }}>
+                  <span className="Details_value">
                     {type.type.name}
                   </span>
                 </li>

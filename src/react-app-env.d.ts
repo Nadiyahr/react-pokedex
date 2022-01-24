@@ -9,6 +9,11 @@ type Pokemon = {
   url: string
 };
 
+type TypePokemon = {
+  pokemon: Pokemon;
+  slot: number;
+};
+
 interface PokemonType {
   name: string;
   url: string;

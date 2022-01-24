@@ -17,10 +17,13 @@
   }
 
   &_header {
-    padding-bottom: 3vw;
+    // padding-bottom: 3vw;
     grid-area: header;
-    display: flex;
-    justify-content: center;
+    text-align: center;
+  }
+
+  &_span {
+    text-transform: capitalize;
   }
 
   &_main {
@@ -56,8 +59,9 @@
     cursor: pointer;
 
     @media (max-width: 900px) {
-      font-size: 1rem;
+      font-size: 0.8rem;
       letter-spacing: 0.2rem;
+      height: 5vw;
     }
   }
 }
