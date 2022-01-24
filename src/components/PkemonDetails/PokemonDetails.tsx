@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLOR_TYPES } from '../../api/api';
+import { COLOR_TYPES } from '../../api/consts';
 import './PokemonDetails.scss';
 
 type Props = {
@@ -9,9 +9,6 @@ type Props = {
 
 export const PokemonDetails: React.FC<Props> = (props) => {
   const { details, setClose } = props;
-
-  // eslint-disable-next-line no-console
-  console.log(details);
 
   const textTrasform = (text: string) => {
     if (text.includes('special-')) {

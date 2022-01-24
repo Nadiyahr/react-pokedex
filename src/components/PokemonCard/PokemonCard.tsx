@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import { COLOR_TYPES } from '../../api/api';
+import { COLOR_TYPES } from '../../api/consts';
 import { requestInfo } from '../../api/pocemon';
 import './PokemonCard.scss';
 
@@ -12,14 +11,10 @@ export const PokemonCard: React.FC<Props> = (props) => {
   const { pokemon } = props;
   const [card, setCard] = useState<Card | null>(null);
 
-  console.log(pokemon.name);
-
   const preparedCard = async () => {
     const info = await requestInfo(pokemon.name);
 
     setCard(info);
-
-    console.log(info);
   };
 
   useEffect(() => {

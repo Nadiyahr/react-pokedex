@@ -1,6 +1,6 @@
 import {
   BASE_URL, POKEMONS, TYPES,
-} from './api';
+} from './consts';
 
 export const requestPokemon = (offset: number) => {
   return fetch(`${BASE_URL}/${POKEMONS}/?limit=${offset}`)
@@ -14,9 +14,6 @@ export const requestPokemon = (offset: number) => {
 };
 
 export const requestInfo = (name: string | number | null) => {
-  // eslint-disable-next-line no-console
-  console.log(name);
-
   return fetch(`${BASE_URL}/${POKEMONS}/${name}`)
     .then(response => {
       if (!response.ok) {

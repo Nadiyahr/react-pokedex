@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { requestInfo, requestPokemon, requestTypeByIndex } from './api/pocemon';
 import FindPocemon from './components/FindPokemon';
-import { POKEMONS_PER_PAGE } from './api/api';
+import { POKEMONS_PER_PAGE } from './api/consts';
 import PokemonDetails from './components/PkemonDetails';
 import PokemonList from './components/PokemonList';
 
@@ -36,8 +35,6 @@ export const App: React.FC = () => {
   const loadTypeWithIndex = async (index: number) => {
     const listByIndexType = await requestTypeByIndex(index + 1);
 
-    console.log(listByIndexType.pokemon.map((x: TypePokemon) => x.pokemon));
-
     setPokemons(listByIndexType.pokemon
       .slice(0, typeOffset)
       .map((x: TypePokemon) => x.pokemon));
@@ -53,7 +50,6 @@ export const App: React.FC = () => {
     setIndexLoaded(!indexLoaded);
     setTypeIndex(index);
     setTypeName(name);
-    console.log(index);
   };
 
   const loadMore = () => {

@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import { COLOR_TYPES } from '../../api/api';
+import { COLOR_TYPES } from '../../api/consts';
 import { requestTypes } from '../../api/pocemon';
 import './FindPokemon.scss';
 
@@ -17,8 +16,6 @@ export const FindPocemon: React.FC<Props> = (props) => {
     const listOfTypes = await requestTypes();
 
     setTypes(listOfTypes.results);
-
-    console.log(listOfTypes.results);
   };
 
   const getTypes = () => {
