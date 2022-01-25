@@ -57,7 +57,7 @@
 
   &_list {
     list-style: none;
-    
+    -webkit-padding-start: 0;
 
     @media (max-width: 900px) {
       -webkit-padding-start: 1vw;
