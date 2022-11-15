@@ -1,6 +1,6 @@
 # Pokedex
 
-[demo](https://nadiyahr.github.io/pokedex/)
+[demo](https://nadiyahr.github.io/react-pokedex/)
 
 TECHSTACK: React/JS/HTML/CSS(SCSS)
 
